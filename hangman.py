@@ -46,7 +46,8 @@ class Hangman():
         return self.getActualWord() == self.word
 
 class Player():
-    def __init__(self, letters):
+    def __init__(self, name, letters):
+        self.name = name
         self.letters = list(letters)
         self.letters.reverse()
 
@@ -54,7 +55,7 @@ class Player():
         return self.letters.pop()
 
     def getName(self):
-        return 'Mr. White'
+        return self.name
 
 def game(player):
     hangman = Hangman(SimpleDictionary())
@@ -79,4 +80,4 @@ def game(player):
     else:
         print('%s lost' % player.getName())
 
-game(Player('asdfghjklqwertyuiopzxcvbnm'))
+game(Player('Mr. White', 'asdfghjklqwertyuiopzxcvbnm'))
