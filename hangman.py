@@ -12,6 +12,7 @@ class Hangman():
         self.word = self.dictionary.getWord()
         self.visibleWord = list('_' * len(self.word))
         self.chances = Hangman.STARTING_CHANCES_NUMBER
+        self.misses = []
 
     def giveLetter(self, letter):
         result = False
@@ -25,8 +26,15 @@ class Hangman():
 
         if not result:
             self.chances -= 1
+            self.misses.append(letter)
 
         return result
+
+    def getChances(self):
+        return self.chances
+
+    def getMisses(self):
+        return self.misses
 
     def getActualWord(self):
         return ''.join(self.visibleWord)
@@ -45,13 +53,30 @@ class Player():
     def giveLetter(self):
         return self.letters.pop()
 
+    def getName(self):
+        return 'Mr. White'
+
 def game(player):
     hangman = Hangman(SimpleDictionary())
     hangman.startGame()
 
     while hangman.canPlay():
-        hangman.giveLetter(player.giveLetter())
+        print('Word: "%s" Chances: %d' % (hangman.getActualWord(), hangman.getChances()))
+        print('Misses: %s' % ', '.join(hangman.getMisses()))
+        letter = player.giveLetter()
 
-    return hangman.win()
+        print('%s gives letter: "%c"' % (player.getName(), letter))
+        result = hangman.giveLetter(letter)
+        if result:
+            print('The letter "%c" found' % letter)
+        else:
+            print('Letter "%c" not present in word' % letter)
 
-print(game(Player('asdfghjklqwertyuiopzxcvbnm')))
+        print
+
+    if hangman.win():
+        print('%s win' % player.getName())
+    else:
+        print('%s lost' % player.getName())
+
+game(Player('asdfghjklqwertyuiopzxcvbnm'))
