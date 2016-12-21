@@ -7,9 +7,6 @@ class Hangman():
 
     def __init__(self, dictionary):
         self.dictionary = dictionary
-        self.word = ''
-        self.visibleWord = ''
-        self.chances = 0
 
     def startGame(self):
         self.word = self.dictionary.getWord()
