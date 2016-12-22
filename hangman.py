@@ -63,7 +63,6 @@ class HumanPlayer():
 
     def giveLetter(self):
         from getch import getch
-
         print('Your turn (please provide letter): ')
         return getch()
 
@@ -88,7 +87,7 @@ def game(player):
         print
 
     if hangman.win():
-        print('%s win' % player.getName())
+        print('%s guess the word "%s" and win' % (player.getName(), hangman.getActualWord()))
     else:
         print('%s lost' % player.getName())
 
