@@ -57,6 +57,19 @@ class Player():
     def getName(self):
         return self.name
 
+class HumanPlayer():
+    def __init__(self, name):
+        self.name = name
+
+    def giveLetter(self):
+        from getch import getch
+
+        print('Your turn (please provide letter): ')
+        return getch()
+
+    def getName(self):
+        return self.name
+
 def game(player):
     hangman = Hangman(SimpleDictionary())
     hangman.startGame()
@@ -65,7 +78,6 @@ def game(player):
         print('Word: "%s" Chances: %d' % (hangman.getActualWord(), hangman.getChances()))
         print('Misses: %s' % ', '.join(hangman.getMisses()))
         letter = player.giveLetter()
-
         print('%s gives letter: "%c"' % (player.getName(), letter))
         result = hangman.giveLetter(letter)
         if result:
@@ -80,4 +92,5 @@ def game(player):
     else:
         print('%s lost' % player.getName())
 
-game(Player('Mr. White', 'asdfghjklqwertyuiopzxcvbnm'))
+#game(Player('Mr. White', 'asdfghjklqwertyuiopzxcvbnm'))
+game(HumanPlayer('Mr. Brown'))
