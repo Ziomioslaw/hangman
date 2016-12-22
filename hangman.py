@@ -16,6 +16,7 @@ class Hangman():
 
     def giveLetter(self, letter):
         result = False
+
         x = 0
         for char in self.word:
             if char == letter:
@@ -26,7 +27,8 @@ class Hangman():
 
         if not result:
             self.chances -= 1
-            self.misses.append(letter)
+            if not letter in self.misses:
+                self.misses.append(letter)
 
         return result
 
