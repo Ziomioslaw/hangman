@@ -71,11 +71,14 @@ class HumanPlayer():
     def getName(self):
         return self.name
 
-def game(player):
+def game(players):
     hangman = Hangman(SimpleDictionary())
     hangman.startGame()
 
+    playersCount = len(players)
+    turns = 0
     while hangman.canPlay():
+        player = players[turns % playersCount]
         print('Word: "%s" Chances: %d' % (hangman.getActualWord(), hangman.getChances()))
         print('Misses: %s' % ', '.join(hangman.getMisses()))
         letter = player.giveLetter()
@@ -87,11 +90,11 @@ def game(player):
             print('Letter "%c" not present in word' % letter)
 
         print
+        turns += 1
 
     if hangman.win():
         print('%s guess the word "%s" and win' % (player.getName(), hangman.getActualWord()))
     else:
         print('%s lost' % player.getName())
 
-#game(Player('Mr. White', 'asdfghjklqwertyuiopzxcvbnm'))
-game(HumanPlayer('Mr. Brown'))
+game([HumanPlayer('Mr. Brown'), Player('Mr. White', 'asdfghjklqwertyuiopzxcvbnm')])
